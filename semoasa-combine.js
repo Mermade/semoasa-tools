@@ -2,7 +2,7 @@
 
 'use strict';
 
-const doit = require('./index.js').process;
+const combine = require('./index.js').combine;
 
 let files = [];
 for (let i=2;i<process.argv.length;i++) {
@@ -10,6 +10,6 @@ for (let i=2;i<process.argv.length;i++) {
 }
 
 if (files.length) {
-	doit(files);
+	combine(files);
 }
 

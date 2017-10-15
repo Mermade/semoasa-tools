@@ -4,7 +4,7 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 const semver = require('semver');
 
-function process(files) {
+function combine(files) {
 	let count = 0;
 	let version = '0.1.0';
 	let output = {};
@@ -35,6 +35,6 @@ function process(files) {
 }
 
 module.exports = {
-	process : process
+	combine : combine
 };
 
