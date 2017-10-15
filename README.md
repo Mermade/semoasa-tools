@@ -26,7 +26,15 @@ Clashing definitions in later input files will be **merged** with those in earli
 
 ## semoasa-split
 
-*Coming soon*
+### Splitting a bundled Semoasa document back into its component parts, based on namespace.
+
+### Usage
+
+`semoasa-split [file...]`
+
+### Notes
+
+Namespaces existing in multiple input files will overwrite the same output document(s).
 
 ## semoasa-validate
 

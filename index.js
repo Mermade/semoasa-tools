@@ -4,9 +4,14 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 const semver = require('semver');
 
+const recurse = require('reftools/recurse.js').recurse;
+const jptr = require('reftools/jptr.js').jptr;
+
+const defaultVersion = '0.1.0';
+
 function combine(files) {
 	let count = 0;
-	let version = '0.1.0';
+	let version = defaultVersion;
 	let output = {};
 	output.openapiExtensionFormat = version;
 
@@ -34,7 +39,38 @@ function combine(files) {
 	}
 }
 
+function split(filename) {
+    let s = fs.readFileSync(filename,'utf8');
+    let input = yaml.safeLoad(s,{json:true});
+    if (input.openapiExtensionFormat) {
+        let version = defaultVersion;
+        for (let p in input) {
+            if (p === 'openapiExtensionFormat') {
+                version = input.openapiExtensionFormat;
+            }
+            else {
+                let output = {};
+                output.openapiExtensionFormat = version;
+                output[p] = input[p];
+
+                // populate everything required by a $ref
+                recurse(input[p],{},function(obj,key,state){
+                    if ((key === '$ref') && (typeof obj[key] === 'string')) {
+                        jptr(output,obj[key],jptr(input,obj[key]));
+                    }
+                });
+
+                fs.writeFileSync('./'+p+'.yaml',yaml.safeDump(output),'utf8');
+            }
+        }
+    }
+    else {
+        console.warn('Not a Semoasa document');
+    }
+}
+
 module.exports = {
-	combine : combine
+	combine : combine,
+    split : split
 };
 
