@@ -1,7 +1,7 @@
 {
-  "name": "semoasa-combine",
+  "name": "semoasa-tools",
   "version": "1.0.0",
-  "description": "Combine multiple Semoasa documents",
+  "description": "Tools to manipulate Semoasa documents",
   "main": "index.js",
   "dependencies": {
     "js-yaml": "^3.10.0",
@@ -19,12 +19,15 @@
     "semoasa",
     "openapi",
     "openapi3",
-    "api"
+    "api",
+    "combine",
+    "split",
+    "validate"
   ],
   "author": "Mike Ralphson",
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/mermade/semoasa-combine/issues"
+    "url": "https://github.com/mermade/semoasa-tools/issues"
   },
-  "homepage": "https://github.com/mermade/semoasa-combine#readme"
+  "homepage": "https://github.com/mermade/semoasa-tools#readme"
 }
