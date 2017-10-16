@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "js-yaml": "^3.10.0",
-    "reftools": "0.0.3",
+    "reftools": "^0.0.3",
     "semver": "^5.4.1"
   },
   "devDependencies": {},
