@@ -4,8 +4,8 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 const semver = require('semver');
 
-const recurse = require('reftools/recurse.js').recurse;
-const jptr = require('reftools/jptr.js').jptr;
+const recurse = require('reftools/lib/recurse.js').recurse;
+const jptr = require('reftools/lib/jptr.js').jptr;
 
 const defaultVersion = '0.1.0';
 
