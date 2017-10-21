@@ -26,7 +26,9 @@ Clashing definitions in later input files will be **merged** with those in earli
 
 ## semoasa-split
 
-### Splitting a bundled Semoasa document back into its component parts, based on namespace.
+### Use case
+
+Splitting a bundled Semoasa document back into its component parts, based on namespace.
 
 ### Usage
 
