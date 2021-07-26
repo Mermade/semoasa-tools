@@ -1,7 +1,7 @@
 'use strict';
 
 const fs = require('fs');
-const yaml = require('js-yaml');
+const yaml = require('yaml');
 const semver = require('semver');
 
 const recurse = require('reftools/lib/recurse.js').recurse;
@@ -10,38 +10,38 @@ const jptr = require('reftools/lib/jptr.js').jptr;
 const defaultVersion = '0.1.0';
 
 function combine(files) {
-	let count = 0;
-	let version = defaultVersion;
-	let output = {};
-	output.openapiExtensionFormat = version;
+    let count = 0;
+    let version = defaultVersion;
+    let output = {};
+    output.openapiExtensionFormat = version;
 
-	for (let file of files) {
-		count++;
-		let s = fs.readFileSync(file,'utf8');
-		let input = yaml.safeLoad(s,{json:true});
-		for (let prop in input) {
-			if (prop === 'openapiExtensionFormat') {
+    for (let file of files) {
+        count++;
+        let s = fs.readFileSync(file,'utf8');
+        let input = yaml.parse(s);
+        for (let prop in input) {
+            if (prop === 'openapiExtensionFormat') {
 
-				if (semver.gt(input.openapiExtensionFormat,version)) {
-					version = input.openapiExtensionFormat;
-				}
-			}
-			else {
-				if (!output[prop]) output[prop] = {};
-				output[prop] = Object.assign({},output[prop],input[prop]);
-			}
-		}
-	}
+                if (semver.gt(input.openapiExtensionFormat,version)) {
+                    version = input.openapiExtensionFormat;
+                }
+            }
+            else {
+                if (!output[prop]) output[prop] = {};
+                output[prop] = Object.assign({},output[prop],input[prop]);
+            }
+        }
+    }
 
-	if (count > 0) {
-		output.openapiExtensionFormat = version;
-		console.log(yaml.safeDump(output));
-	}
+    if (count > 0) {
+        output.openapiExtensionFormat = version;
+        console.log(yaml.stringify(output));
+    }
 }
 
 function split(filename) {
     let s = fs.readFileSync(filename,'utf8');
-    let input = yaml.safeLoad(s,{json:true});
+    let input = yaml.parse(s);
     if (input.openapiExtensionFormat) {
         let version = defaultVersion;
         for (let p in input) {
@@ -60,7 +60,7 @@ function split(filename) {
                     }
                 });
 
-                fs.writeFileSync('./'+p+'.yaml',yaml.safeDump(output),'utf8');
+                fs.writeFileSync('./'+p+'.yaml',yaml.stringify(output),'utf8');
             }
         }
     }
@@ -70,7 +70,7 @@ function split(filename) {
 }
 
 module.exports = {
-	combine : combine,
+    combine : combine,
     split : split
 };
 

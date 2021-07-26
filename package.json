@@ -4,9 +4,9 @@
   "description": "Tools to manipulate Semoasa documents",
   "main": "index.js",
   "dependencies": {
-    "js-yaml": "^3.10.0",
-    "reftools": "^0.0.4",
-    "semver": "^5.4.1"
+    "reftools": "^1.1.9",
+    "semver": "^7.3.5",
+    "yaml": "^1.10.2"
   },
   "devDependencies": {},
   "scripts": {
